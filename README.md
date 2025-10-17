@@ -1,7 +1,7 @@
 # Rubik's Cube Solver
 
 ## Preview
-<!-- <img src="https://raw.githubusercontent.com/BenjaminBurnell/Lyrify/refs/heads/main/assets/ezgif-4e32b50b9ea37f.gif"></img> -->
+<img src="https://raw.githubusercontent.com/BenjaminBurnell/Cube-Solver/refs/heads/main/assets/ezgif-519a8084a48077.gif"></img> 
 
 ## Overview
 
