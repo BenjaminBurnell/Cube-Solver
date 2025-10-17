@@ -1,7 +1,7 @@
+# cube.py
 import cv2
 import numpy as np
-import time
-from color_classifier import CubeColorClassifier  # Your ML classifier
+from color_classifier import CubeColorClassifier # If you want to change the way that the color is extracted from the image create a new object that can do that with the frame then create the predict function you can read through mine in the color_classifier.py
 from collections import Counter
 
 class CubeScanner:
@@ -12,14 +12,10 @@ class CubeScanner:
         self.classifier = CubeColorClassifier()  # Load existing data if present
 
     def get_color(self, avg_hsv, training=False):
-        """
-        Get color from classifier.
-        If in training mode, ask user for the correct color and add it to training data.
-        """
         if training:
             print(f"Detected HSV: {avg_hsv}")
-            # color = input("Enter the correct color letter (R/G/B/O/Y/W): ").upper()
-            color = "O"
+            color = input("Enter the correct color letter (R/G/B/O/Y/W): ").upper()
+            # color = "O" just comment out the line about in order to train it quickly if you have a solved cube so that you dont have to identify each individual pieces sticker color
             self.classifier.add_training_sample(avg_hsv, color)
             return color
         else:
@@ -136,10 +132,10 @@ class CubeScanner:
         cv2.destroyAllWindows()
         print("All faces captured!")
 
-        # --- Define valid cube colors ---
+        # Define valid cube colors
         valid_colors = {'R', 'G', 'B', 'Y', 'W', 'O'}
 
-        # --- Auto correction after scan ---
+        # Auto correction after scan
         all_detected_colors = set(c for face in face_order for row in self.cube[face] for c in row)
         print("\nDetected colors before correction:", all_detected_colors)
 

@@ -1,8 +1,11 @@
+# color_classifier.py
 import os
 import pickle
 from sklearn.neighbors import KNeighborsClassifier
 import joblib
 import numpy as np
+
+# NOTE: I was originally going to use just straight python and not store the training data in a .pkl file but then I asked chatGPT how I could make the script run faster and more efficent thats the first thing it told me to do then I found I should try and take 6 frames then combined them to get a closer avg_hsv to reference the model
 
 class CubeColorClassifier:
     def __init__(self, model_path="cube_color_model.pkl", data_path="cube_training_data.pkl"):
@@ -10,7 +13,8 @@ class CubeColorClassifier:
         self.data_path = data_path
         self.model = KNeighborsClassifier(n_neighbors=3)
 
-        # Load existing training data
+        # Load existing training data 
+        # Remeber you can create your own if you have a different cube than me I have red, green, blue, white, yellow, and orange. but you may have different shades so its best if you create your own training model.
         if os.path.exists(self.data_path):
             with open(self.data_path, "rb") as f:
                 data = pickle.load(f)

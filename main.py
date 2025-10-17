@@ -1,5 +1,8 @@
+# main.py
 import cube
 import cube_solver
+
+# NOTE: The cube_color_classifier.py isn't used its just extra data.
 
 if __name__ == "__main__":
     my_cube = cube.CubeScanner()
