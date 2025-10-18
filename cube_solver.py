@@ -2,10 +2,18 @@
 from collections import Counter
 import kociemba
 
-# If you download this from my github use your colors to train your own model this is for (Red, Green, Blue, Yellow, White, and Orange), but if your cube uses black instead of white delete the training model so it doesnt get confused and train your own using the train option
+"""
+If you download this from my github use your colors to train your own model 
+this is for (Red, Green, Blue, Yellow, White, and Orange), but if your cube 
+uses black instead of white delete the training model so it doesnt get confused 
+and train your own using the train option.
+"""
 VALID_COLORS = {'R', 'G', 'B', 'Y', 'W', 'O'} 
 
-# Kociemba expects face letters in this order: U, R, F, D, L, B these you can't change as the kociemba library only accepts the 3x3 rubix's cube. 
+"""
+Kociemba expects face letters in this order: U, R, F, D, L, B these you can't 
+change as the kociemba library only accepts the 3x3 rubix's cube. 
+"""
 KOCIEMBA_FACE_ORDER = ['U', 'R', 'F', 'D', 'L', 'B']
 
 class CubeSolver:
@@ -69,15 +77,15 @@ class CubeSolver:
     
     # Steps to converting
     def convert_to_kociemba_string(self, cube_state):
-        # 1) Collapse lists into single value if necessary
+        # 1. Collapse lists into single value if necessary
         norm = self._normalize_cube_state(cube_state)
 
-        # 2) Build mapping from scanned color -> face letter (U/R/F/D/L/B) using centers
+        # 2. Build mapping from scanned color -> face letter (U/R/F/D/L/B) using centers
         color_map, err = self._validate_and_build_map(norm)
         if err:
             return None, err
 
-        # 3) Build the 54-character facelet string
+        # 3. Build the 54-character facelet string
         kociemba_chars = []
         for face in KOCIEMBA_FACE_ORDER:
             grid = norm[face]
