@@ -117,7 +117,7 @@ class CubeScanner:
                     break
 
     def scan_cube(self):
-        # mode = input("Enter mode (train/solve): ").strip().lower()
+        # mode = input("Enter mode (train/solve): ").strip().lower() If you want to train the model uncomment this line to prompt for the mode or change the variable below to the "train" mode
         mode = "solve"  # or "train"
         training = mode == "train"
 
