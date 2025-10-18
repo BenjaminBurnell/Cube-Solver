@@ -12,9 +12,13 @@ class CubeColorClassifier:
         self.model_path = model_path
         self.data_path = data_path
         self.model = KNeighborsClassifier(n_neighbors=3)
-
-        # Load existing training data 
-        # Remeber you can create your own if you have a different cube than me I have red, green, blue, white, yellow, and orange. but you may have different shades so its best if you create your own training model.
+        
+        """
+        Remeber you can create your own if you have a different cube than me I have red, green, 
+        blue, white, yellow, and orange. but you may have different shades so its best if you 
+        create your own training model.
+        """
+        # Load existing training data if there is any
         if os.path.exists(self.data_path):
             with open(self.data_path, "rb") as f:
                 data = pickle.load(f)
@@ -27,7 +31,7 @@ class CubeColorClassifier:
             self.labels = []
 
     def add_training_sample(self, hsv_avg, color_label):
-        """Add new HSV sample with color label"""
+        # Add new HSV sample with color label
         hsv_avg = np.array(hsv_avg).reshape(1, -1)
         self.samples.append(hsv_avg.flatten())
         self.labels.append(color_label)
@@ -36,7 +40,7 @@ class CubeColorClassifier:
         self.save_data()
 
     def predict(self, hsv_avg):
-        """Predict color label from HSV array"""
+        # Predict color label from HSV array
         hsv_avg = np.array(hsv_avg).reshape(1, -1)
         return self.model.predict(hsv_avg)[0]
 
