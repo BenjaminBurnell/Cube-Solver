@@ -6,7 +6,7 @@ from collections import Counter
 class CubeColorClassifier:
     def __init__(self):
         
-        # --- 1. Define separate data arrays (X_color) ---
+        # 1. Define separate data arrays (X_color)
 
         self.red_X = np.array([
             [143, 60, 144], [144, 68, 144], [136, 59, 147], [145, 72, 143],
@@ -211,7 +211,7 @@ class CubeColorClassifier:
             [80, 13, 186], [95, 19, 181]
         ])
 
-        # --- 2. Concatenate data and create labels automatically ---
+        # 2. Concatenate data and create labels automatically
         
         # Combine all X data arrays
         self.X = np.concatenate([
@@ -236,7 +236,7 @@ class CubeColorClassifier:
         # This check is now guaranteed to pass: len(self.X) == len(self.y)
         print(f"Classifier trained with {len(self.X)} total samples.")
 
-        # --- 3. Train the classifier ---
+        # 3. Train the classifier
 
         # Normalize HSV values
         self.X_norm = self.X.astype(float)
@@ -274,18 +274,24 @@ class CubeColorClassifier:
             for hsv in row:
                 predicted_row.append(self.predict_color(hsv))
             predicted_face.append(predicted_row)
-
-        # Correction Logic: Use the center sticker's predicted color 
-        # as the true face color for maximum reliability.
+        
+        """
+        Correction Logic: Use the center sticker's predicted color 
+        as the true face color for maximum reliability.
+        """
         center_color = predicted_face[1][1]
 
-        # Correct all other colors to match the center color.
-        # This is the most reliable way to enforce that all stickers on one face 
-        # MUST be the same color (except the center, which identifies the face).
+        """
+        Correct all other colors to match the center color.
+        This is the most reliable way to enforce that all stickers on one face 
+        MUST be the same color (except the center, which identifies the face).
+        """
         for i in range(3):
             for j in range(3):
-                # We skip the center (1, 1) because it's already correct.
-                # However, forcing everything to the center color is safer for solving.
+                """
+                Skip the center (1, 1) because it's already correct.
+                However, forcing everything to the center color is safer for solving.
+                """
                 predicted_face[i][j] = center_color
 
         return predicted_face
